@@ -1,6 +1,18 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-7">
+            <div class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Id</th>
+                        <th>User</th>
+                        <th>Win rate</th>
+                    </tr>
+                </thead>
+                </tbody>
+                </tbody>
+            </div>
             {{#each leader_board}}
                 <div class="col-md-16">
                     <div class="card">
@@ -14,19 +26,7 @@
                     </div>
                 </div>
             {{/each}}
-            <div class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Id</th>
-                        <th>User</th>
-                        <th>Win rate</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </div>
+            
 
         </div>
         <div class="col-md-5">
