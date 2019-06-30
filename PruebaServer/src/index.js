@@ -22,7 +22,7 @@ app.engine('.hbs', exphbs({
     partialsDir: path.join(app.get('views'), 'partials'), //Dice que partials está justo dentro de "views"
     extname: '.hbs', //Da el nombre que tendrán los archivos de handlebars, ya que la extensión es ".handlebars"
     helpers: require('./lib/handlebars')
-})); 
+}));
 app.set('view engine', '.hbs'); //Con esto se puede usar la configuración del server
 
 //Middlewares (funciones que se ejecutan cada vez que se envía una petición al servidor)
@@ -48,7 +48,9 @@ app.use((req, res, next) => { //Toma los datos del usuario, lo que el server qui
 //Rutas
 app.use(require('./routes')); //Busca automáticamente el archivo index.js
 app.use(require('./routes/autenticar'));
-app.use('/links', require('./routes/links')); 
+app.use('/links', require('./routes/links'));
+
+app.use('/leader_board',require('./routes/leader_board'));
 
 //Public
 app.use(express.static(path.join(__dirname, 'public'))); //Para saber dónde estarán las carpetas públicas
