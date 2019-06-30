@@ -2,6 +2,11 @@ const express = require('express');
 const morgan = require('morgan'); //Morgan muestra por consola las peticiones que van llegando
 const exphbs = require('express-handlebars'); //Motor de plantillas handlebars
 const path = require('path'); //Llama al módulo path
+const flash = require('connect-flash'); //Middleware que servirá para mostrar mensajes de las acciones en la página
+const session = require('express-session'); //Se necesita para verificar la sesión
+const MySQLStore = require('express-mysql-session'); //Biblioteca necesaria para guardar la sesión en donde se desee
+
+const { database } = require('./keys'); //Se usa la database desde './keys'
 
  //Inicialización de todo (base de datos)
 const app = express(); //Se ejecuta express y guarda un objeto en app
@@ -19,13 +24,20 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs'); //Con esto se puede usar la configuración del server
 
 //Middlewares (funciones que se ejecutan cada vez que se envía una petición al servidor)
+app.use(session({ //Se configura la sesión antes de usar flash
+    secret: 'CreandoSesion',
+    resave: false, //Para que no se empiece a renovar la sesión
+    saveUninitialized: false, //Falso para que no se vuelva a establecer la sesión
+    store: new MySQLStore(database) //Sirve para guardar las sesiones en la base de datos
+})); 
+app.use(flash());
 app.use(morgan('dev')); //Dev: string que muestra el mensaje por consola
 app.use(express.urlencoded({extended: false})); //Para poder aceptar datos que envían los usuarios (solo datos simples como nombres por ej)
 app.use(express.json()); //Sirve para futuras mejoras de la app
 
 //Variables globales
 app.use((req, res, next) => { //Toma los datos del usuario, lo que el server quiere responder y pasa a lo siguiente en el código
-
+    app.locals.success = req.flash('success'); //El mensaje estará disponible para todas las "views"
     next();
 });
 
