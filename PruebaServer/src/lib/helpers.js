@@ -10,4 +10,8 @@ helpers.encryptPassword = async(password) => {
     return hash;
 };
 
+helpers.matchPassword = async(password, savedPassword) => {
+    await bcrypt.compare(password, savedPassword); //Compara la password ingresada con la que está registrada
+};
+
 module.exports = helpers; //Se importa helpers
