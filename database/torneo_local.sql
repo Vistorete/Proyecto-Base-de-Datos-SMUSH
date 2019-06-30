@@ -1,9 +1,8 @@
 --local de la evo
 INSERT INTO locales (nombre, direccion, capacidad) values ('Mandalay Bay Resort','3150 Paradise Rd, Las Vegas, NV 89109, EE. UU',5000);
 --reglas
-INSERT INTO reglas (id, num_jugadores, tipo_partida, minutos) values ('1s8',1, 'STOCK', 8);
 --torneo
-INSERT INTO torneos(id_reglas,id_organizador,nombre,id_local,fecha) values ('1s8',1001,'EVOLUTION 2019',1,'2019-08-02');
+INSERT INTO torneos(id_organizador,nombre,id_local,fecha) values (1001,'EVOLUTION 2019',1,'2019-08-02');
 --partidas
 
 -- Ronda 1
@@ -145,7 +144,7 @@ INSERT INTO resultados(id_torneo, id_user, posicion) values (1,818,9);
 --TORNEO 2
 INSERT INTO locales (nombre, direccion, capacidad) values ('Elmia exhibition centre','Elmiavägen 15, 554 54 Jönköping, Suecia',20000);
 --torneo
-INSERT INTO torneos(id_reglas,id_organizador,nombre,id_local,fecha) values ('1s8',1004,'DREAM HACK 2019',2,'2019-09-11');
+INSERT INTO torneos(id_organizador,nombre,id_local,fecha) values (1004,'DREAM HACK 2019',2,'2019-09-11');
 
 --Pool 1
 --Insert into partidas(id_torneo,id_jugador1,id_jugador2,score_jugador1,score_jugador2,num_ronda) values (2,1001,989,1,2,1);

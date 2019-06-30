@@ -44,21 +44,11 @@ CREATE TABLE locales(
   capacidad INT(5) NOT NULL
 
 );
--- Reglas del torneo
-
-CREATE TABLE reglas(
-  id VARCHAR(4) NOT NULL,
-  PRIMARY KEY (id),
-  num_jugadores INT(1) NOT NULL,
-  tipo_partida VARCHAR(16) NOT NUll,
-  minutos INT(2) NOT NULL
-);
 
 -- informacion del torneo
 CREATE TABLE torneos(
   id INT(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (id),
-  id_reglas INT(11) NOT NULL,
   id_organizador INT(11) NOT NULL,
   nombre VARCHAR(25) NOT NULL,
   id_local INT(11),
@@ -110,7 +100,6 @@ DESCRIBE users;
 DESCRIBE partidas;
 DESCRIBE torneos;
 DESCRIBE resultados;
-DESCRIBE reglas;
 DESCRIBE locales;
 DESCRIBE equipos;
 DESCRIBE Personajes;
