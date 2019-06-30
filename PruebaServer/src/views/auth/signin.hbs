@@ -1,0 +1,31 @@
+{{!Archivo para crear el login}}
+
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center"> {{!Coloca el texto en el centro}}
+                <div class="card-header"> {{!Cabecera}}
+                    <h3>SignIn</h3> {{!Título del Sign Up}}
+                </div>
+                <div class="card-body"> {{!Se define el formulario aquí}}
+                    {{!Con esto se pone la imagen ubicada en la ruta como fondo}}
+                    <img src="/Images/logoSmash.png" alt="SmashPrueba" class="card-img-top mx-auto m-2 rounded-circle w-70"> 
+                    <form action="/signin" method="POST"> {{!Enviará los datos a la ruta "/signup" por el método POST}}
+                     {{!Se hacen campos para llenar los datos en un "form-group"}}
+                        <div class="form-group"> {{!Campo para el username}}
+                            <input type="text" name="username" placeholder="Username" class="form-control"> 
+                        </div>
+                        <div class="form-group"> {{!Campo para la password}}
+                            <input type="password" name="password" placeholder="Password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block">
+                                SignIn
+                            </button>
+                        </div>
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
