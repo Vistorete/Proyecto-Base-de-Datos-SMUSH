@@ -3,6 +3,14 @@
 const passport = require('passport'); //Módulo para crear los métodos
 const LocalStrategy = require('passport-local').Strategy;
 
+passport.use('/local.signin', new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
+    passReqToCallback: true
+}, async (req, username, password, done) => {
+    console.log(req.body);
+}));
+
 const pool = require('../database'); //Se importa la conexión de la base de datos
 const helpers = require('../lib/helpers'); //Se importa el método helpers
 
