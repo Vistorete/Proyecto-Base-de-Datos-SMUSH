@@ -15,6 +15,7 @@ router.post('/add', async(req, res) => { //Se pide 'add' por el método post de 
         description
     };
     const hola = await pool.query('INSERT INTO links set ?', [newLink]);
+    req.flash('success', 'Link guardado correctamente'); //Mensaje llamado "success" que muestra el mensaje cuando se guarda un user
     res.redirect('/links');
 });
 
@@ -26,6 +27,7 @@ router.get('/', async (req, res) => {
 router.get('/delete/:id', async (req, res) => { //Sirve para borrar los usuarios
     const { id } = req.params; //Busca la constante id
     await pool.query('DELETE FROM links WHERE ID = ?', [id]);
+    req.flash('success', 'Enlace removido');
     res.redirect('/links');
 });
 
@@ -44,8 +46,8 @@ router.post('/edit/:id', async (req, res) => { // Sirve para editar los datos de
         description,
         url
     };
-    console.log(newLink);
     await pool.query('UPDATE links set ? WHERE id = ?', [newLink, id]); //Ingresa esto en SQL para editar los datos
+    req.flash('success', 'Link actualizado');
     res.redirect('/links');
 });
 
