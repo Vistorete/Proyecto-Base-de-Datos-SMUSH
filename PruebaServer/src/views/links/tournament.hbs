@@ -21,8 +21,8 @@
                 <tbody>
                     {{#each tournaments}}
                         <tr>
-                            <td>{{username}}    </td>
-                            <td>{{nombre}}    </td>
+                            <td><a href="/users/{{id_organizador}}"> {{username}}  </a></td>
+                            <td><a href="/tournament/info/{{id}}"> {{nombre}} </a>    </td>
                             <td>{{fecha}}    </td>
                             <td>{{direccion}}    </td>
                             <td>
