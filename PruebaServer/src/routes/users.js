@@ -10,36 +10,37 @@ var connection = mysql.createConnection({
     database: 'database_smush'
 });
 
-var usuario;
+var users;
 
 connection.connect(function(err){
     if(err) throw err;
 });
 
 router.get('/', async (req, res) => {
-    connection.query('SELECT * FROM users;', function(err,result,fields){
+    connection.query('SELECT users.id, equipos.tag, users.username, users.fullname, users.edad, users.pais FROM users, equipos WHERE equipos.id = users.id_equipo', function(err,result,fields){
         if(err) throw err;
-        console.log(result);
-        usuario=result;
+        //console.log(result);
+        users=result;
     });
-    res.render('links/users', {usuario});
-    console.log(usuario);
+
+    res.render('links/users', {users});
+    console.log(users);
     //res.send('listo');
 });
 
-/*router.post('/',async(req,res)=>{
-    const {id, id_equipo, username, fullname, edad, pais} = req.body;
+router.post('/',async(req,res)=>{
+    const {id, tag, username, fullname, edad, pais} = req.body;
     const newUser = {
         id,
-        id_equipo,
+        tag,
         username,
         fullname,
         edad,
         pais
     };
     var query = await con.query("INSERT INTO users set ?",[newUser]);
-    res.render('/users',{usuario});
-});*/
+    res.render('/users',{users});
+});
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
@@ -47,5 +48,19 @@ router.get('/:id', async (req, res) => {
     res.send(res.params.id);
     //res.redirect('/users');
 });
+
+router.get('/delete/:id', async (req, res) => {
+    const id = req.params.id;
+    await connection.query('DELETE FROM users where id = ?', [id]);
+    res.redirect('/users');
+});
+
+router.get('/edit/:id', async (req, res) => {
+    const id = req.params.id;
+    await connection.query('SELECT users.username, users.fullname, users.edad, users.pais FROM users WHERE id = ?', [id]);
+    res.render('links/users');
+});
+
+
 
 module.exports = router;
