@@ -19,13 +19,14 @@ con.connect(function(err){
 });
 
 router.get('/', async (req, res) => {
-    con.query("SELECT * FROM torneos",function(err,result,fields){
+    con.query("SELECT torneos.id, users.username, torneos.nombre, torneos.fecha, locales.direccion FROM users, torneos, locales WHERE users.id=torneos.id_organizador and locales.id=torneos.id_local ORDER BY torneos.fecha;",function(err,result,fields){
         if(err) throw err;
         console.log(result);
         tournaments=result;
     });
     res.render('links/tournament',{tournaments});
     console.log(tournaments);
+
 });
 router.post('/',async(req,res)=>{
     const {id_organizador, nombre, id_local, fecha} = req.body;
@@ -36,15 +37,13 @@ router.post('/',async(req,res)=>{
         fecha
     };
     var query = await con.query("INSERT INTO torneos set ?",[nuevoTorneo]);
-    res.render('links/tournament',{tournaments});
+    res.redirect('/tournament');
 });
 
 router.get('/delete/:id',async(req,res)=>{
     const id = req.params.id;
-    console.log(id);
     await con.query('DELETE FROM torneos WHERE id = ?',[id]);
     res.redirect('/tournament');
-    res.send('tula');
 });
 
 
