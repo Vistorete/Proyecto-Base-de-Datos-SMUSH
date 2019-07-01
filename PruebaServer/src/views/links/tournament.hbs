@@ -13,6 +13,7 @@
                         <th>Nombre</th>
                         <th>Fecha</th>
                         <th>Dirección</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 
@@ -24,6 +25,9 @@
                             <td>{{nombre}}    </td>
                             <td>{{fecha}}    </td>
                             <td>{{id_local}}    </td>
+                            <td>
+                                <a href="/tournament/delete/{{id}}" class="btn btn-danger">Borrar</a>
+                            </td>
                         </tr>
                     {{/each}}
 

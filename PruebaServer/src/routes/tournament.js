@@ -39,5 +39,13 @@ router.post('/',async(req,res)=>{
     res.render('links/tournament',{tournaments});
 });
 
+router.get('/delete/:id',async(req,res)=>{
+    const id = req.params.id;
+    console.log(id);
+    await con.query('DELETE FROM torneos WHERE id = ?',[id]);
+    res.redirect('/tournament');
+    res.send('tula');
+});
+
 
 module.exports = router; //Exporta el objeto router
