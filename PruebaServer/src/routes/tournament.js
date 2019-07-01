@@ -26,8 +26,8 @@ router.get('/', async (req, res) => {
     });
     res.render('links/tournament',{tournaments});
     console.log(tournaments);
-
 });
+
 router.post('/',async(req,res)=>{
     const {id_organizador, nombre, id_local, fecha} = req.body;
     const nuevoTorneo = {

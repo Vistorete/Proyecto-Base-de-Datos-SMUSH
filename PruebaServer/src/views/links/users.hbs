@@ -1,0 +1,38 @@
+<h1>
+    <center>Usuario</center>
+</h1>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col md-5">
+            <div class="table-responsive table-hover">
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>ID_equipo</td>
+                            <td>Usermame</td>
+                            <td>Fullname</td>
+                            <td>Edad</td>
+                            <td>Pais</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each users}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{id_equipo}}</td>
+                            <td>
+                                <a href="/users/{{id}}">User</a>
+                            </td>
+                            <td>{{fullname}}</td>
+                            <td>{{edad}}</td>
+                            <td>{{pais}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
