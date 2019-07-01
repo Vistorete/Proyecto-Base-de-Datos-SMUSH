@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="r">
+        <div class="col-md-4 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/links/user_edit/{{id}}" method="POST">
+                        <div class="form-group"><input type="text" value="{{user.username}}" class="form-group" name="username" placeholder="Username"></div> 
+                        <div class="form-group"><input type="text" value="{{user.fullname}}" class="form-group" name="fullname" placeholder="Fullname"></div> 
+                        <div class="form-group"><input type="number" value="{{user.edad}}" class="form-group" name="edad" placeholder="Edad"></div> 
+                        <div class="form-group"><input type="text" value="{{user.pais}}" class="form-group" name="país" placeholder="País"></div> 
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
