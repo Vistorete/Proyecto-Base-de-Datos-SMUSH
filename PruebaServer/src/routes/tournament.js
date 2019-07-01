@@ -19,7 +19,7 @@ con.connect(function(err){
 });
 
 router.get('/', async (req, res) => {
-    con.query("SELECT torneos.id_organizador, torneos.id, users.username, torneos.nombre, torneos.fecha, locales.direccion FROM users, torneos, locales WHERE users.id=torneos.id_organizador and locales.id=torneos.id_local ORDER BY torneos.fecha;",function(err,result,fields){
+    await con.query("SELECT torneos.id_organizador, torneos.id, users.username, torneos.nombre, torneos.fecha, locales.direccion FROM users, torneos, locales WHERE users.id=torneos.id_organizador and locales.id=torneos.id_local ORDER BY torneos.fecha;",function(err,result,fields){
         if(err) throw err;
         //console.log(result);
         tournaments=result;
@@ -36,7 +36,7 @@ router.post('/',async(req,res)=>{
         id_local,
         fecha
     };
-    var query = await con.query("INSERT INTO torneos set ?",[nuevoTorneo]);
+    await con.query("INSERT INTO torneos set ?",[nuevoTorneo]);
     res.redirect('/tournament');
 });
 
@@ -48,8 +48,12 @@ router.get('/delete/:id',async(req,res)=>{
         if(err) throw err;
         console.log(result);
     });
-    res.redirect('/tournament');
+    await res.redirect('/tournament');
 });
 
+router.get('/info/:id',async(req,res)=>{
+    const id = req.params.id;
+    res.send("id de torneo: "+id);
+});
 
 module.exports = router; //Exporta el objeto router
