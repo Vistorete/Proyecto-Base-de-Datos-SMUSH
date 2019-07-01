@@ -22,7 +22,6 @@ router.get('/', async (req, res) => {
         console.log(result);
         usuario=result;
     });
-    //res.send(usuario);
     res.render('links/users', {usuario});
     console.log(usuario);
     //res.send('listo');
