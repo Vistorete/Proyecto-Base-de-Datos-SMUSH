@@ -1,36 +1,35 @@
+
+<h1>
+    <center>Tabla de posiciones</center>
+</h1>
+<center>
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-7">
-            <div class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>Rank</th>
-                        <th>Id</th>
-                        <th>User</th>
-                        <th>Win rate</th>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Winrate</th>
                     </tr>
                 </thead>
-                </tbody>
-                </tbody>
-            </div>
-            {{#each leader_board}}
-                <div class="col-md-16">
-                    <div class="card">
-                        <div class="card-body">
-                            <a href="users/{{id}}">
-                                <h3 class="card-title text-uppercase">
-                                    {{Rank}} {{id}} {{username}} {{winrate}}%
-                                </h3>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            {{/each}}
-            
+                <tbody>
+                    {{#each leader_board}}
+                        <tr>
+                            <td>{{Rank}}    </td>
+                            <td>{{id}}    </td>
+                            <td>{{username}}    </td>
+                            <td>{{winrate}}%</td>
+                        </tr>
+                    {{/each}}
 
+                </tbody>
+
+            </table>
         </div>
-        <div class="col-md-5">
-            qeqweqweqweqeqwewqe
-        </div>
+        
     </div>
 </div>
+</center>

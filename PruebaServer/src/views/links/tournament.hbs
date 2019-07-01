@@ -6,7 +6,30 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-7">
-            
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Organizador</th>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Dirección</th>
+                    </tr>
+                </thead>
+                
+
+                <tbody>
+                    {{#each tournaments}}
+                        <tr>
+                            <td>{{id_organizador}}    </td>
+                            <td>{{nombre}}    </td>
+                            <td>{{fecha}}    </td>
+                            <td>{{id_local}}    </td>
+                        </tr>
+                    {{/each}}
+
+                </tbody>
+
+            </table>
         </div>
         <div class="col-md-5">
             <div class="card">

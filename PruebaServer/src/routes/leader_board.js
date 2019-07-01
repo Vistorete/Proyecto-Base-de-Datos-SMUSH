@@ -9,7 +9,7 @@ var con = mysql.createConnection({
     password: "",
     database: "database_smush"
 });
-var users;
+var leader_board;
 
 con.connect(function(err){
     if(err) throw err;
