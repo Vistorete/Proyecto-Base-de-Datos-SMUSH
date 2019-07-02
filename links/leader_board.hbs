@@ -1,0 +1,35 @@
+
+<h1>
+    <center>Tabla de posiciones</center>
+</h1>
+<center>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-7">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Winrate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each leader_board}}
+                        <tr>
+                            <td>{{Rank}}    </td>
+                            <td>{{id}}    </td>
+                            <td>{{username}}    </td>
+                            <td>{{winrate}}%</td>
+                        </tr>
+                    {{/each}}
+
+                </tbody>
+
+            </table>
+        </div>
+        
+    </div>
+</div>
+</center>

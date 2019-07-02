@@ -223,6 +223,27 @@ INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (45,1,8,74,9);
 Insert into partidas(id_torneo,id_jugador1,id_jugador2,score_jugador1,score_jugador2,num_ronda) values (2,177,85,1,0,5);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (46,1,69,15,1);
 
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,177,1);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,85,2);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,800,3);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,69,3);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,350,5);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,2,5);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,100,5);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,80,5);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,23,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,351,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,366,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,81,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,325,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,456,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,784,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (2,194,9);
+
+
+
+
+
 
 -- TORNEO 3
 INSERT INTO torneos(id_organizador,nombre,id_local,fecha) values (180,'ULTIMATE CUP TOURNEY',3,'2020-09-11');
@@ -264,6 +285,16 @@ Insert into partidas(id_torneo,id_jugador1,id_jugador2,score_jugador1,score_juga
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (65,1,69,12,1);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (66,2,69,20,2);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (67,3,20,21,1);
+
+
+INSERT INTO resultados(id_torneo, id_user, posicion) values (3,177,1);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1004,2);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1003,3);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1000,3);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1002,5);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1005,5);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1001,5);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (3,100,5);
 
 
 -- TORNEO 4
@@ -406,4 +437,23 @@ INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (156,1,12,55,2);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (157,2,1,50,1);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (158,3,18,11,12);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (159,4,17,67,10);
+
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,666,1);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,418,2);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,1000,3);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,807,3);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,74,5);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,7,5);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,1,5);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,547,5);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,1002,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,57,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,14,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,181,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,89,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,357,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,18,9);
+INSERT INTO resultados(id_torneo, id_user, posicion) values (4,376,9);
+
+
 
