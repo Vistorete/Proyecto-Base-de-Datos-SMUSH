@@ -1,0 +1,39 @@
+<h1>
+    <center>Información de la partida </center>
+</h1>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Juego</th>
+                        <th>Player1</th>
+                        <th>Player2</th>
+                        <th>Mapa</th>
+                    </tr>
+                </thead>
+                
+
+                <tbody>
+                    {{#each p_torneo}}
+                        <tr>
+                            <td>{{id_partida}}    </td>
+                            <td>{{num_match}}</td>
+                            <td>{{nombre1}}</td>
+                            <td> {{nombre2}}    </td>
+                            <td>{{nombre}}</td>
+
+
+                        </tr>
+                    {{/each}}
+
+                </tbody>
+
+            </table>
+        </div>
+        
+    </div>
+</div>

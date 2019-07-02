@@ -53,6 +53,7 @@ app.use('/links', require('./routes/links'));
 app.use('/leader_board',require('./routes/leader_board'));
 app.use('/tournament',require('./routes/tournament'));
 app.use('/users', require('./routes/users'));
+app.use('/pj', require('./routes/pj'));
 
 //Public
 app.use(express.static(path.join(__dirname, 'public'))); //Para saber dónde estarán las carpetas públicas

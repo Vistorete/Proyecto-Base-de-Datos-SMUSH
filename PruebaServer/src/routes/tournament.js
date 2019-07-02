@@ -62,5 +62,23 @@ router.get('/info/:id',async(req,res)=>{
     });
     res.render('links/t_info',{p_torneo});
 });
+router.get('/info/info/:id',async(req,res)=>{
+    const id_torneo = req.params.id;
+    await con.query("SELECT juegos.id_partida, juegos.num_match, p1.nombre1,p2.nombre2,mapas.nombre from juegos,mapas,(select personajes.id,personajes.nombre as nombre1 from personajes)as p1, (select personajes.id,personajes.nombre as nombre2 from personajes)as p2 where p1.id=juegos.pj1 and p2.id=juegos.pj2 and juegos.mapa=mapas.id and juegos.id_partida=?",[id_torneo],function(err,result,fields){
+        if(err) throw er1r;
+        p_torneo = result;
+        console.log(result);
+    });
+    res.render('links/t_infoinfo',{p_torneo});
+});
 
+router.post('/info/add/:id',async(req,res)=>{
+    res.send("tula");
+    const id = req.params.id;
+    console.log(req.body);
+    //const {id_jugador1, id_jugador2, score_jugador1,score_jugador2, num_ronda} = req.body;
+    //const nuevaPartida = {id_jugador1,id_jugador2,score_jugador1,score_jugador2,num_ronda};
+    console.log(nuevaPartida);
+    //res.redirect('/tournament/info/{id}');
+});
 module.exports = router; //Exporta el objeto router
