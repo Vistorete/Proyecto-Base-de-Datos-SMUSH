@@ -210,7 +210,6 @@ router.get('/npdream2019', async (req, res) => {
 router.get('/toppj', async (req, res) => {
     const id = req.params.id;
     console.log(id)
-
     await con.query("select a.nombre  from ((select count(*) n , personajes.nombre from personajes,juegos,partidas,users where (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) and juegos.id_partida = partidas.id and (personajes.id = juegos.pj1 or personajes.id = juegos.pj2) group by (personajes.nombre))as a)  where a.n = (select max(a.n) from ((select count(*) n , personajes.nombre from personajes,juegos,partidas,users where (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) and juegos.id_partida = partidas.id and (personajes.id = juegos.pj1 or personajes.id = juegos.pj2) group by (personajes.nombre))as a)) ",function(err,result,fields){
         if(err) throw err;
         console.log(result);
@@ -220,5 +219,77 @@ router.get('/toppj', async (req, res) => {
     //res.send("asbdkasdasd");
     //console.log(tournaments);
 });
+//-----------------------------------partidas jugadas---------------------------------------------------------------------------------------
 
+router.get('/parjug', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+    await con.query("select users.fullname, count(partidas.id) c from partidas, users where (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) group by (users.fullname)",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/parjug',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------users de un pais---------------------------------------------------------------------------------------
+
+router.get('/jppais', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select users.fullname, users.pais from users order by users.pais ",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/jppais',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//---------------------------------------------personajes jugaods por NN--------------------------------------------------------------------------
+
+router.get('/pjnn', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select p.nombre from (select count(personajes.nombre) contador, personajes.nombre from personajes,juegos,partidas,users where users.username = 'NN' and (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) and juegos.id_partida = partidas.id and (personajes.id = juegos.pj1 or personajes.id = juegos.pj2) group by (personajes.nombre) ) as p;",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/pjnn',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------organizador de DREAMHACK 2919---------------------------------------------------------------------------------------
+router.get('/ordh2019', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select users.fullname from users,torneos where torneos.nombre='DREAM HACK 2019' and torneos.id_organizador=users.id",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/ordh2019',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------info torneo--------------------------------------------------------------------------------------
+
+router.get('/intor', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("SELECT torneos.nombre, torneos.fecha, locales.direccion FROM users, torneos, locales WHERE users.id=torneos.id_organizador and locales.id=torneos.id_local ORDER BY torneos.fecha;",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/intor',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
 module.exports = router; //Exporta el objeto router
