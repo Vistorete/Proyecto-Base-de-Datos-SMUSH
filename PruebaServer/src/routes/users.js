@@ -3,7 +3,7 @@ const router = express.Router();
 
 var mysql = require('mysql');
 
-var connection = mysql.createConnection({
+var con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
@@ -12,12 +12,12 @@ var connection = mysql.createConnection({
 
 var users;
 
-connection.connect(function(err){
+con.connect(function(err){
     if(err) throw err;
 });
 
 router.get('/', async (req, res) => {
-    connection.query('SELECT users.id, equipos.tag, users.username, users.fullname, users.edad, users.pais FROM users, equipos WHERE equipos.id = users.id_equipo', function(err,result,fields){
+        await con.query('SELECT users.id, equipos.tag, users.username, users.fullname, users.edad, users.pais FROM users, equipos WHERE equipos.id = users.id_equipo', function(err,result,fields){
         if(err) throw err;
         //console.log(result);
         users=result;
@@ -38,27 +38,27 @@ router.post('/',async(req,res)=>{
         edad,
         pais
     };
-    var query = await connection.query("INSERT INTO users set ?",[newUser]);
+    var query = await con.query("INSERT INTO users set ?",[newUser]);
     res.render('/users',{users});
 });
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
-    await connection.query('SELECT FROM users WHERE id = ?', [id]);
+    await con.query('SELECT FROM users WHERE id = ?', [id]);
     res.send(res.params.id);
     //res.redirect('/users');
 });
 
 router.get('/delete/:id', async (req, res) => { //Función para borrar usuario
     const id = req.params.id;
-    await connection.query('DELETE FROM users WHERE id = ?', [id]);
+    await con.query('DELETE FROM users WHERE id = ?', [id]);
     res.redirect('/users'); //Redirecciona a users.hbs
 });
 
 router.get('/edit/:id', async (req, res) => { //Función para obtener el usuario a editar
     const { id } = req.params;
-    const links = await connection.query('SELECT users.username, users.fullname, users.edad, users.pais FROM users WHERE id = ?', [id]);
-    console.log(links[0]);
+    const links = await con.query('SELECT users.username, users.fullname, users.edad, users.pais FROM users WHERE id = ?', [id]);
+    //console.log(links[0]);
     res.render('links/user_edit', {links: links[0]});
 });
 
@@ -71,7 +71,7 @@ router.get('/edit/:id', async (req, res) => { //Función para editar el usuario 
         edad,
         pais
     };
-    await pool.query('UPDATE users set ? WHERE id = ', [newUser, id]);
+    await pool.query('UPDATE users set ? WHERE id = ?', [newUser, id]);
     //res.send('hola');
     res.redirect('/users');
 });
