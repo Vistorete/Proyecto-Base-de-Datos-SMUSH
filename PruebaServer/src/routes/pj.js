@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
     res.render('links/pj',{pj});
     //console.log(tournaments);
 });
-router.get('/pop', async (req, res) => {
+router.get('/poppj', async (req, res) => {
     await con.query("SELECT personajes.nombre, count(case WHEN juegos.pj1=personajes.id THEN 1 END) + count(case WHEN juegos.pj2=personajes.id THEN 1 END) as total from personajes, juegos GROUP BY personajes.id ORDER BY total DESC",function(err,result,fields){
         if(err) throw err;
         console.log(result);
@@ -30,7 +30,7 @@ router.get('/pop', async (req, res) => {
     //res.send("asbdkasdasd");
     //console.log(tournaments);
 });
-var tour;
+var tour
 router.get('/captour', async (req, res) => {
     await con.query("select torneos.nombre, locales.capacidad from locales,torneos where torneos.id_local = locales.id",function(err,result,fields){
         if(err) throw err;
@@ -166,7 +166,7 @@ router.get('/mrondas', async (req, res) => {
     const id = req.params.id;
     console.log(id)
 
-    await con.query("select max(partidas.num_ronda) p from partidas,torneos where torneos.nombre = 'EVOLUTION 2019' and partidas.id_torneo = torneos.id",function(err,result,fields){
+    await con.query("select torneos.nombre, max(partidas.num_ronda) p from partidas,torneos where torneos.nombre = 'EVOLUTION 2019' and partidas.id_torneo = torneos.id",function(err,result,fields){
         if(err) throw err;
         console.log(result);
         pj=result;
@@ -220,79 +220,5 @@ router.get('/toppj', async (req, res) => {
     //res.send("asbdkasdasd");
     //console.log(tournaments);
 });
-//-----------------------------------personajes jugados---------------------------------------------------------------------------------------
 
-router.get('/pjug', async (req, res) => {
-    const id = req.params.id;
-    console.log(id)
-
-    await con.query("",function(err,result,fields){
-        if(err) throw err;
-        console.log(result);
-        pj=result;
-    });
-    res.render('links/pjug',{pj});
-    //res.send("asbdkasdasd");
-    //console.log(tournaments);
-});
-//-----------------------------------1---------------------------------------------------------------------------------------
-
-router.get('/toppj', async (req, res) => {
-    const id = req.params.id;
-    console.log(id)
-
-    await con.query("",function(err,result,fields){
-        if(err) throw err;
-        console.log(result);
-        pj=result;
-    });
-    res.render('links/toppj',{pj});
-    //res.send("asbdkasdasd");
-    //console.log(tournaments);
-});
-//-----------------------------------1---------------------------------------------------------------------------------------
-
-router.get('/toppj', async (req, res) => {
-    const id = req.params.id;
-    console.log(id)
-
-    await con.query("",function(err,result,fields){
-        if(err) throw err;
-        console.log(result);
-        pj=result;
-    });
-    res.render('links/toppj',{pj});
-    //res.send("asbdkasdasd");
-    //console.log(tournaments);
-});
-//-----------------------------------1---------------------------------------------------------------------------------------
-
-router.get('/toppj', async (req, res) => {
-    const id = req.params.id;
-    console.log(id)
-
-    await con.query("",function(err,result,fields){
-        if(err) throw err;
-        console.log(result);
-        pj=result;
-    });
-    res.render('links/toppj',{pj});
-    //res.send("asbdkasdasd");
-    //console.log(tournaments);
-});
-//-----------------------------------1---------------------------------------------------------------------------------------
-
-router.get('/toppj', async (req, res) => {
-    const id = req.params.id;
-    console.log(id)
-
-    await con.query("",function(err,result,fields){
-        if(err) throw err;
-        console.log(result);
-        pj=result;
-    });
-    res.render('links/toppj',{pj});
-    //res.send("asbdkasdasd");
-    //console.log(tournaments);
-});
 module.exports = router; //Exporta el objeto router
