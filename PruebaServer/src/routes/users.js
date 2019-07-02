@@ -38,30 +38,31 @@ router.post('/',async(req,res)=>{
         edad,
         pais
     };
-    var query = await con.query("INSERT INTO users set ?",[newUser]);
+    var query = await connection.query("INSERT INTO users set ?",[newUser]);
     res.render('/users',{users});
 });
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
-    await connection.query('SELECT FROM users where id = ?', [id]);
+    await connection.query('SELECT FROM users WHERE id = ?', [id]);
     res.send(res.params.id);
     //res.redirect('/users');
 });
 
-router.get('/delete/:id', async (req, res) => {
+router.get('/delete/:id', async (req, res) => { //Función para borrar usuario
     const id = req.params.id;
-    await connection.query('DELETE FROM users where id = ?', [id]);
-    res.redirect('/users');
+    await connection.query('DELETE FROM users WHERE id = ?', [id]);
+    res.redirect('/users'); //Redirecciona a users.hbs
 });
 
-router.get('/edit/:id', async (req, res) => {
-    const id = req.params.id;
-    await connection.query('SELECT users.username, users.fullname, users.edad, users.pais FROM users WHERE id = ?', [id]);
-    res.render('links/user_edit');
+router.get('/edit/:id', async (req, res) => { //Función para obtener el usuario a editar
+    const { id } = req.params;
+    const links = await connection.query('SELECT users.username, users.fullname, users.edad, users.pais FROM users WHERE id = ?', [id]);
+    console.log(links[0]);
+    res.render('links/user_edit', {links: links[0]});
 });
 
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', async (req, res) => { //Función para editar el usuario obtenido
     const id = req.params.id;
     const { username, fullname, edad, pais} = req.body;
     const newUser = {
