@@ -1,4 +1,1 @@
-select locales.capacidad
-	from locales,torneos
-	where torneos.nombre = "DREAM HACK 2019"
-	and torneos.id_local = locales.id
+select torneos.nombre,locales.capacidad from locales,torneos and torneos.id_local = locales.id

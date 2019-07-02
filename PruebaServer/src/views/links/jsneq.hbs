@@ -1,0 +1,29 @@
+<h1>
+    <center>Jugadores sin equipos</center>
+</h1>
+<center>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-7">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Username</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each pj}}
+                        <tr>
+                            <td>{{fullname}}   </td>
+                            <td>{{usernames}}     </td>
+                        </tr>
+                    {{/each}}
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+</center>
