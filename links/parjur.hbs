@@ -1,0 +1,29 @@
+<h1>
+    <center>partidas jugadas</center>
+</h1>
+<center>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-7">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>usuario</th>
+                        <th>partidas jugadas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each pj}}
+                        <tr>
+                            <td>{{fullname}}   </td>
+                            <td>{{c}}     </td>
+                        </tr>
+                    {{/each}}
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+</center>

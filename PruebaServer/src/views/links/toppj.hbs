@@ -1,0 +1,27 @@
+<h1>
+    <center>personaje mas jugado</center>
+</h1>
+<center>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-7">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>personaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each pj}}
+                        <tr>
+                            <td>{{nombre}}   </td>
+                        </tr>
+                    {{/each}}
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+</center>
