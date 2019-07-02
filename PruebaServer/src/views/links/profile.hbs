@@ -1,13 +1,16 @@
+{{#each users2}}
 <h1>
-    <center>Miembros del equipo</center>
+    <center>Usuario</center>
 </h1>
 <div class="container">
     <div class="row mt-5">
         <div class="col md-5">
             <table class="table" id="table">
+                <form action="/profile/{{id}}" method="post"></form>
                 <thead>
                     <tr>
                         <td>ID</td>
+                        <td>Tag</td>
                         <td>Username</td>
                         <td>Fullname</td>
                         <td>Edad</td>
@@ -15,17 +18,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each users}}
                     <tr>
                         <td>{{id}}</td>
+                        <td>{{id_equipo}}</td>
                         <td>{{username}}</td>
                         <td>{{fullname}}</td>
                         <td>{{edad}}</td>
                         <td>{{pais}}</td>
                     </tr>
-                    {{/each}}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+{{/each}}
