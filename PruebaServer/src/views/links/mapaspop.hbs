@@ -1,5 +1,5 @@
 <h1>
-    <center>Jugadores sin equipos</center>
+    <center>Torneos organizados por</center>
 </h1>
 <center>
 <div class="container">
@@ -9,14 +9,15 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Username</th>
+                        <th>Veces jugados</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     {{#each pj}}
                         <tr>
-                            <td>{{fullname}}   </td>
-                            <td>{{username}}     </td>
+                            <td>{{nombre}}     </td>
+                            <td>{{cuenta}}     </td>
                         </tr>
                     {{/each}}
 

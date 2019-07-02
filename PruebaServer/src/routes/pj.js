@@ -70,4 +70,33 @@ router.get('/jsneq', async (req, res) => {
     //res.send("asbdkasdasd");
     //console.log(tournaments);
 });
+
+
+router.get('/userorg/:id', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("SELECT users.username, users.fullname, torneos.nombre, torneos.id, locales.nombre as nombreL FROM torneos, users, locales WHERE locales.id = torneos.id_local and torneos.id_organizador = ? and users.id=?",[id,id],function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/userorg',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+
+router.get('/mapaspop', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select * from (select mapas.nombre , count(*) as cuenta from mapas , juegos where mapas.id = juegos.mapa group by mapas.id) as E order by E.cuenta desc",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/mapaspop',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
 module.exports = router; //Exporta el objeto router

@@ -1,5 +1,5 @@
 <h1>
-    <center>Jugadores sin equipos</center>
+    <center>Torneos organizados por</center>
 </h1>
 <center>
 <div class="container">
@@ -8,15 +8,22 @@
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Nombre</th>
-                        <th>Username</th>
+                        <th>Usuario</th>
+                        <th>Torneo</th>
+                        <th>Local</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each pj}}
                         <tr>
+                            <td>{{id}}     </td>
                             <td>{{fullname}}   </td>
                             <td>{{username}}     </td>
+                            <td>{{nombre}}     </td>
+                            <td>{{nombreL}}     </td>
+
                         </tr>
                     {{/each}}
 

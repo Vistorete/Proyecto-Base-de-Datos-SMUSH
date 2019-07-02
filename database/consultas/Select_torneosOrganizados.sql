@@ -1,0 +1,1 @@
+SELECT users.username, users.fullname, torneos.nombre, torneos.id, locales.nombre as nombreL FROM torneos, users, locales WHERE locales.id = torneos.id_local and torneos.id_organizador = ? and users.id=?;
