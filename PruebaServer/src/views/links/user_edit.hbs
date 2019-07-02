@@ -6,15 +6,21 @@
         <div class="col-md-4 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <form action="/links/user_edit" method="POST">
-                        <div class="form-group"><input type="text" value="{{links.username}}" class="form-control" name="username" placeholder="Username"></div> 
-                        <div class="form-group"><input type="text" value="{{links.fullname}}" class="form-control" name="fullname" placeholder="Fullname"></div> 
-                        <div class="form-group"><input type="number" value="{{links.edad}}" class="form-control" name="edad" placeholder="Edad"></div> 
-                        <div class="form-group"><input type="text" value="{{links.pais}}" class="form-control" name="pais" placeholder="País"></div> 
+                    {{#each users2}}
+                    <form action="/users/edit/{{id}}" method="POST">
+                        <div class="form-group"><input type="text" value="{{username}}" class="form-control"
+                                name="username" placeholder="Username" autofocus></div>
+                        <div class="form-group"><input type="text" value="{{fullname}}" class="form-control"
+                                name="fullname" placeholder="Fullname"></div>
+                        <div class="form-group"><input type="number" value="{{edad}}" class="form-control" name="edad"
+                                placeholder="Edad"></div>
+                        <div class="form-group"><input type="text" value="{{pais}}" class="form-control" name="pais"
+                                placeholder="País"></div>
                         <div class="form-group">
-                            <button class="btn btn-success btn-block">
+                            <button type="submit" class="btn btn-success btn-block">
                                 Save
                             </button>
+                            {{/each}}
                         </div>
                     </form>
                 </div>

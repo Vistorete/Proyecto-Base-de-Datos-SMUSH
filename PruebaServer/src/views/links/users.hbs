@@ -33,7 +33,7 @@
                 <thead>
                     <tr>
                         <td>ID</td>
-                        <td>Tag_equipo</td>
+                        <td>ID equipo</td>
                         <td>Username</td>
                         <td>Fullname</td>
                         <td>Edad</td>
@@ -44,7 +44,7 @@
                     {{#each users}}
                     <tr>
                         <td>{{id}}</td>
-                        <td>{{tag}}</td>
+                        <td><a href="/teams/members/{{id_equipo}}">  {{id_equipo}}</a>   </td>
                         <td>{{username}}</td>
                         <td>{{fullname}}</td>
                         <td>{{edad}}</td>
@@ -52,6 +52,7 @@
                         <td>
                             <a href="/users/delete/{{id}}" class="btn btn-danger">Borrar</a>
                             <a href="/users/edit/{{id}}" class="btn btn-secondary">Edit</a>
+                            <a href="/users/profile/{{id}}" class="btn btn-secondary">Ver Usuario</a>
                         </td>
                     </tr>
                     {{/each}}
