@@ -30,6 +30,7 @@ router.get('/pop', async (req, res) => {
     //res.send("asbdkasdasd");
     //console.log(tournaments);
 });
+var tour;
 router.get('/captour', async (req, res) => {
     await con.query("select torneos.nombre, locales.capacidad from locales,torneos where torneos.id_local = locales.id",function(err,result,fields){
         if(err) throw err;
@@ -84,6 +85,7 @@ router.get('/userorg/:id', async (req, res) => {
     res.render('links/userorg',{pj});
     //res.send("asbdkasdasd");
     //console.log(tournaments);
+//-----------------------------------------------------------------------------------------------------------------------------
 });
 
 router.get('/mapaspop', async (req, res) => {
@@ -96,6 +98,200 @@ router.get('/mapaspop', async (req, res) => {
         pj=result;
     });
     res.render('links/mapaspop',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-------------------------------pais ganador de torneo----------------------------------------------------------------
+router.get('/pagan', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select users.pais from users,resultados where resultados.posicion = 1 and users.id = resultados.id_user",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/pagan',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-------------------------------puestos destacados-------------------------------------------------------------------------------------------
+
+router.get('/topplay', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select users.fullname, resultados.posicion from users,resultados where users.id = resultados.id_user and (resultados.posicion = 1 or resultados.posicion = 2 or resultados.posicion = 3) order by resultados.posicion",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/topplay',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------capacidad locales---------------------------------------------------------------------------------------
+
+router.get('/caploc', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select locales.nombre, locales.capacidad from locales where locales.capacidad=(select max(locales.capacidad) from locales)",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/caploc',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------pais con mas jugadores---------------------------------------------------------------------------------------
+
+router.get('/maypais', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select E.pais, E.contarp from (select users.pais , count(users.id) contarp from users group by users.pais) as E where E.contarp = (select max(A.P) from (select users.pais , count(users.id) P from users group by users.pais)as A)",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/maypais',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------max rondas---------------------------------------------------------------------------------------
+
+router.get('/mrondas', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select max(partidas.num_ronda) p from partidas,torneos where torneos.nombre = 'EVOLUTION 2019' and partidas.id_torneo = torneos.id",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/mrondas',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------miembros team alpha---------------------------------------------------------------------------------------
+
+router.get('/malpha', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select users.fullname, users.username from users, equipos where equipos.id=users.id_equipo and equipos.nombre='Alpha'",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/malpha',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------numero de participantes en un torneo--------------------------------------------------------------------------------------
+
+router.get('/npdream2019', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select torneos.nombre, count(resultados.id_user) c from resultados,torneos where torneos.nombre='DREAM HACK 2019' and torneos.id=resultados.id_torneo	",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/npdream2019',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------personaje mas jugado---------------------------------------------------------------------------------------
+
+router.get('/toppj', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("select a.nombre  from ((select count(*) n , personajes.nombre from personajes,juegos,partidas,users where (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) and juegos.id_partida = partidas.id and (personajes.id = juegos.pj1 or personajes.id = juegos.pj2) group by (personajes.nombre))as a)  where a.n = (select max(a.n) from ((select count(*) n , personajes.nombre from personajes,juegos,partidas,users where (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) and juegos.id_partida = partidas.id and (personajes.id = juegos.pj1 or personajes.id = juegos.pj2) group by (personajes.nombre))as a)) ",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/toppj',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------personajes jugados---------------------------------------------------------------------------------------
+
+router.get('/pjug', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/pjug',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------1---------------------------------------------------------------------------------------
+
+router.get('/toppj', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/toppj',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------1---------------------------------------------------------------------------------------
+
+router.get('/toppj', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/toppj',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------1---------------------------------------------------------------------------------------
+
+router.get('/toppj', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/toppj',{pj});
+    //res.send("asbdkasdasd");
+    //console.log(tournaments);
+});
+//-----------------------------------1---------------------------------------------------------------------------------------
+
+router.get('/toppj', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+
+    await con.query("",function(err,result,fields){
+        if(err) throw err;
+        console.log(result);
+        pj=result;
+    });
+    res.render('links/toppj',{pj});
     //res.send("asbdkasdasd");
     //console.log(tournaments);
 });

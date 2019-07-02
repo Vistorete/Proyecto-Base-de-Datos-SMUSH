@@ -14,4 +14,4 @@ where a.n = (select max(a.n) from ((select count(*) n , personajes.nombre
 	
 	
     
-	
+select users.fullname, count(partidas.id) from partidas,users where (users.id=partidas.id_jugador1 or users.id=partidas.id_jugador2) ;

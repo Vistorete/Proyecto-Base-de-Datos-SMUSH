@@ -73,9 +73,8 @@ router.get('/info/info/:id',async(req,res)=>{
 });
 
 router.post('/info/add/:id',async(req,res)=>{
-    res.send("tula");
-    const id = req.params.id;
-    console.log(req.body);
+    //const id = req.params.id;
+    //console.log(req.body);
     //const {id_jugador1, id_jugador2, score_jugador1,score_jugador2, num_ronda} = req.body;
     //const nuevaPartida = {id_jugador1,id_jugador2,score_jugador1,score_jugador2,num_ronda};
     console.log(nuevaPartida);
