@@ -1,0 +1,62 @@
+<h1>
+    <center>Users Registered</center>
+</h1>
+<div class="container p-4">
+    <div class="r">
+        <div class="col-md-4 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/users" method="POST">
+                        <div class="form-group"><input type="text" name="username" placeholder="Usuario"
+                                class="form-control"></div>
+                        <div class="form-group"><input type="text" name="fullname" placeholder="Nombre Completo"
+                                class="form-control"></div>
+                        <div class="form-group"><input type="number" name="edad" placeholder="Edad" class="form-control">
+                        </div>
+                        <div class="form-group"><input type="text" name="pais" placeholder="País" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Agregar Usuario
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col md-5">
+            <table class="table" id="table">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Tag_equipo</td>
+                        <td>Username</td>
+                        <td>Fullname</td>
+                        <td>Edad</td>
+                        <td>Pais</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each users}}
+                    <tr>
+                        <td>{{id}}</td>
+                        <td>{{tag}}</td>
+                        <td>{{username}}</td>
+                        <td>{{fullname}}</td>
+                        <td>{{edad}}</td>
+                        <td>{{pais}}</td>
+                        <td>
+                            <a href="/users/delete/{{id}}" class="btn btn-danger">Borrar</a>
+                            <a href="/users/edit/{{id}}" class="btn btn-secondary">Edit</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

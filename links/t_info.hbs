@@ -1,0 +1,61 @@
+
+<h1>
+    <center>Información del Torneo </center>
+</h1>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Player 1</th>
+                        <th>Score1</th>
+                        <th>Score2</th>
+                        <th>Player 2</th>
+                        <th>Ronda</th>
+                    </tr>
+                </thead>
+                
+
+                <tbody>
+                    {{#each p_torneo}}
+                        <tr>
+                            <td> <a href="/tournament/info/info/{{id}}"> {{id}}  </a>  </td> 
+                            <td>{{user1}}    </td>
+                            <td>{{score_jugador1}}</td>
+                            <td>{{score_jugador2}}</td>
+                            <td> {{user2}}    </td>
+                            <td>{{num_ronda}}</td>
+
+
+                        </tr>
+                    {{/each}}
+
+                </tbody>
+
+            </table>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body" data-target="#id_torneo">
+                    <form action="/tournament/info/add/" method="post">
+                <div class="form-group"><input type="number" name="id_torneo" placeholder="Id torneo" class="form-group"></div>
+                <div class="form-group"><input type="number" name="id_jugador1" placeholder="Id jugador 1" class="form-group"></div>
+                <div class="form-group"><input type="number" name="id_jugador2" placeholder="Id jugador 2" class="form-group"></div>
+                <div class="form-group"><input type="number" name="score_jugador1" placeholder="score 1" class="form-group"></div>
+                <div class="form-group"><input type="number" name="score_jugador2" placeholder="score 2" class="form-group"></div>
+                <div class="form-group"><input type="number" name="num_ronda" placeholder="Ronda" class="form-group"></div>
+
+                <button type="submit" class="btn btn-primary">
+                    Agregar partida
+                </button>
+            </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
