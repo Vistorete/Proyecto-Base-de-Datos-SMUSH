@@ -44,7 +44,7 @@
                     {{#each users}}
                     <tr>
                         <td>{{id}}</td>
-                        <td>{{tag}}</td>
+                        <td>{{id_equipo}}</td>
                         <td>{{username}}</td>
                         <td>{{fullname}}</td>
                         <td>{{edad}}</td>
@@ -52,6 +52,7 @@
                         <td>
                             <a href="/users/delete/{{id}}" class="btn btn-danger">Borrar</a>
                             <a href="/users/edit/{{id}}" class="btn btn-secondary">Edit</a>
+                            <a href="/users/profile/{{id}}" class="btn btn-secondary">Ver Usuario</a>
                         </td>
                     </tr>
                     {{/each}}
