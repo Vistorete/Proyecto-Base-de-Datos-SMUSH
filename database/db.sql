@@ -33,7 +33,7 @@ CREATE TABLE partidas(
   id_jugador2 INT(11) Not NULL,
   score_jugador1 INT(1),
   score_jugador2 INT(1),
-  num_ronda INT(2) NOT NULL
+  num_ronda INT(2)
 );
 
 -- Locales

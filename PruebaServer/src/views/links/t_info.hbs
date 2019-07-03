@@ -1,13 +1,52 @@
 
+{{#each torneo}}
 <h1>
-    <center>Información del Torneo </center>
+    <center>Información del Torneo "{{nombre}}" </center>
 </h1>
+{{/each}}
+
+{{#each rondas}}
+    {{ronda}}
+{{/each}}
+
+{{#each participantes}}
+    {{id}} {{username}}
+{{/each}}
 
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-5">
             <table class="table table-bordered table-hover">
                 <thead>
+                    <tr>
+                        <th colspan="2"><center>Participantes</center></th>
+                    </tr>
+                    <tr>
+                        <th><center>ID</center></th>
+                        <th><center>Usuario</center></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each participantes}}
+                    <tr>
+                        <td><a href="{{id}}"> {{id}}  </a></td>
+                        <td> {{username}}   </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th colspan="6">Partidas</th>
+                    </tr>
                     <tr>
                         <th>ID</th>
                         <th>Player 1</th>
