@@ -5,36 +5,44 @@
 </h1>
 {{/each}}
 
-{{#each rondas}}
-    {{ronda}}
-{{/each}}
-
-{{#each participantes}}
-    {{id}} {{username}}
-{{/each}}
-
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-5">
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th colspan="2"><center>Participantes</center></th>
+                        <th colspan="3"><center>Participantes</center></th>
                     </tr>
                     <tr>
                         <th><center>ID</center></th>
                         <th><center>Usuario</center></th>
+                        <th><center>Resultado</center></th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each participantes}}
                     <tr>
-                        <td><a href="{{id}}"> {{id}}  </a></td>
-                        <td> {{username}}   </td>
+                        <td><a href="/users/profile/{{id}}"> {{id}}  </a></td>
+                        <td><a href="/users/profile/{{id}}">{{username}}</a>    </td>
+                        <td>{{posicion}}</td>
                     </tr>
                     {{/each}}
                 </tbody>
             </table>
+        </div>
+                <div class="col-md-5">
+            <div class="card">
+                <div class="card-body" data-target="#id_torneo">
+                    <form action="/tournament/info/add/{{id_torneo}}" method="post">
+                <div class="form-group"><input type="number" name="id_user" placeholder="Id" class="form-group"></div>
+                <button type="submit" class="btn btn-primary">
+                    Inscribir
+                </button>
+            </form>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>
@@ -45,7 +53,7 @@
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th colspan="6">Partidas</th>
+                        <th colspan="6"><center>Partidas</center></th>
                     </tr>
                     <tr>
                         <th>ID</th>
@@ -56,8 +64,6 @@
                         <th>Ronda</th>
                     </tr>
                 </thead>
-                
-
                 <tbody>
                     {{#each p_torneo}}
                         <tr>

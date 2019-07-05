@@ -50,7 +50,7 @@ CREATE TABLE torneos(
   id INT(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (id),
   id_organizador INT(11) NOT NULL,
-  nombre VARCHAR(25) NOT NULL,
+  nombre VARCHAR(32) NOT NULL,
   id_local INT(11),
   fecha DATE NOT NULL
 );
@@ -61,7 +61,7 @@ CREATE TABLE torneos(
 CREATE TABLE resultados(
   id_torneo INT(11) NOT NULL,
   id_user INT(11) NOT NULL,     PRIMARY KEY (id_torneo,id_user),
-  posicion INT(4) NOT NULL
+  posicion INT(4)
 );
 
 --Personajes

@@ -1,8 +1,10 @@
---  local de la evo
-INSERT INTO locales (nombre, direccion, capacidad) values ('Mandalay Bay Resort','3150 Paradise Rd, Las Vegas, NV 89109, EE. UU',5000);
+
+
 -- reglas
 -- torneo
-INSERT INTO torneos(id_organizador,nombre,id_local,fecha) values (1001,'EVOLUTION 2019',1,'2019-08-02');
+INSERT INTO locales (nombre, direccion, capacidad) values ('Centro Creativo','Portugal 1508, Santiago, Chile',5000);
+
+INSERT INTO torneos(id_organizador,nombre,id_local,fecha) values (1001,'I WANNA PLAY SEMANAL DE MARZO',1,'2019-03-01');
 -- partidas
 
 -- Ronda 1
@@ -455,5 +457,8 @@ INSERT INTO resultados(id_torneo, id_user, posicion) values (4,357,9);
 INSERT INTO resultados(id_torneo, id_user, posicion) values (4,18,9);
 INSERT INTO resultados(id_torneo, id_user, posicion) values (4,376,9);
 
+
+--  local de la evo
+INSERT INTO locales (nombre, direccion, capacidad) values ('Mandalay Bay Resort','3150 Paradise Rd, Las Vegas, NV 89109, EE. UU',5000);
 
 

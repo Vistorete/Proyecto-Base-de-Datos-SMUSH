@@ -5,7 +5,7 @@ module.exports = {
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'database_links' //Nombre de la base de datos
+        database: 'database_smush' //Nombre de la base de datos
     }
 
 };

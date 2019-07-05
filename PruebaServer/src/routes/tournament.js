@@ -70,7 +70,7 @@ router.get('/info/:id',async(req,res)=>{
         rondas = result;
         //console.log(torneo);
     });
-    await con.query('SELECT users.id, users.username FROM resultados,users WHERE resultados.id_torneo= ? and users.id=resultados.id_user',[id_torneo],function(err,result,fields){
+    await con.query('SELECT * FROM resultados,users WHERE resultados.id_torneo= ? and users.id=resultados.id_user ORDER BY resultados.posicion',[id_torneo],function(err,result,fields){
         if(err) throw err;
         participantes = result;
         //console.log(torneo);
@@ -81,10 +81,10 @@ router.get('/info/:id',async(req,res)=>{
         //console.log(result);
     });
     //console.log(p_torneo);
-    //console.log(torneo);
-    console.log({p_torneo,torneo,rondas,participantes});
+    console.log(participantes);
+    //console.log({p_torneo,torneo,rondas,participantes});
 
-    res.render('links/t_info',{p_torneo, torneo,rondas,participantes});
+    res.render('links/t_info',{p_torneo, torneo,rondas,participantes,id_torneo});
 });
 router.get('/info/info/:id',async(req,res)=>{
     const id_torneo = req.params.id;
@@ -97,11 +97,24 @@ router.get('/info/info/:id',async(req,res)=>{
 });
 
 router.post('/info/add/:id',async(req,res)=>{
-    //const id = req.params.id;
-    //console.log(req.body);
-    //const {id_jugador1, id_jugador2, score_jugador1,score_jugador2, num_ronda} = req.body;
-    //const nuevaPartida = {id_jugador1,id_jugador2,score_jugador1,score_jugador2,num_ronda};
-    console.log(nuevaPartida);
-    //res.redirect('/tournament/info/{id}');
+    const {id_user} = req.body;
+    const id_torneo = req.params.id;
+    const participante = {id_torneo,id_user};
+    var mensaje;
+
+    await con.query("INSERT INTO resultados set ?",[participante],function(err,result,fields){
+        if(err){
+            console.log('hay un error');
+            //res.send('Ya esta inscrito');
+            return;
+        }else{
+            console.log(participante);
+            //res.send('Inscrito correctamente');
+        };
+        
+    });
+    res.redirect('/tournament/info/6');
+
+
 });
 module.exports = router; //Exporta el objeto router
