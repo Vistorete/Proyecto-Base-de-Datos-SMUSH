@@ -1,4 +1,6 @@
 
+{{id_torneo}}
+
 {{#each torneo}}
 <h1>
     <center>Información del Torneo "{{nombre}}" </center>
@@ -33,8 +35,9 @@
                 <div class="col-md-5">
             <div class="card">
                 <div class="card-body" data-target="#id_torneo">
-                    <form action="/tournament/info/add/{{id_torneo}}" method="post">
+                    <form action="/tournament/info/add/{{id_torneo}}" method="post" onsubmit="resturn Validate()">
                 <div class="form-group"><input type="number" name="id_user" placeholder="Id" class="form-group"></div>
+                <div id="name_error" class="val_error"></div>
                 <button type="submit" class="btn btn-primary">
                     Inscribir
                 </button>
@@ -77,6 +80,9 @@
 
                         </tr>
                     {{/each}}
+                    <tr>
+
+                    </tr>
 
                 </tbody>
 
@@ -85,13 +91,22 @@
         <div class="col-md-5">
             <div class="card">
                 <div class="card-body" data-target="#id_torneo">
-                    <form action="/tournament/info/add/" method="post">
-                <div class="form-group"><input type="number" name="id_torneo" placeholder="Id torneo" class="form-group"></div>
+                    <form action="/tournament/info/game/{{id_torneo}}" method="post" onsumit="return Validator()">
                 <div class="form-group"><input type="number" name="id_jugador1" placeholder="Id jugador 1" class="form-group"></div>
+                                <div id="name_error" class="val_error"></div>
+
                 <div class="form-group"><input type="number" name="id_jugador2" placeholder="Id jugador 2" class="form-group"></div>
+                                <div id="name_error" class="val_error"></div>
+
                 <div class="form-group"><input type="number" name="score_jugador1" placeholder="score 1" class="form-group"></div>
+                                <div id="name_error" class="val_error"></div>
+
                 <div class="form-group"><input type="number" name="score_jugador2" placeholder="score 2" class="form-group"></div>
+                                <div id="name_error" class="val_error"></div>
+
                 <div class="form-group"><input type="number" name="num_ronda" placeholder="Ronda" class="form-group"></div>
+                                <div id="name_error" class="val_error"></div>
+
 
                 <button type="submit" class="btn btn-primary">
                     Agregar partida

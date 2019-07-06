@@ -289,14 +289,6 @@ INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (66,2,69,20,2);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (67,3,20,21,1);
 
 
-INSERT INTO resultados(id_torneo, id_user, posicion) values (3,177,1);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1004,2);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1003,3);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1000,3);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1002,5);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1005,5);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (3,1001,5);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (3,100,5);
 
 
 -- TORNEO 4
@@ -440,22 +432,6 @@ INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (157,2,1,50,1);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (158,3,18,11,12);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (159,4,17,67,10);
 
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,666,1);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,418,2);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,1000,3);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,807,3);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,74,5);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,7,5);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,1,5);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,547,5);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,1002,9);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,57,9);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,14,9);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,181,9);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,89,9);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,357,9);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,18,9);
-INSERT INTO resultados(id_torneo, id_user, posicion) values (4,376,9);
 
 
 --  local de la evo

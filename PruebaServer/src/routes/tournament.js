@@ -81,11 +81,12 @@ router.get('/info/:id',async(req,res)=>{
         //console.log(result);
     });
     //console.log(p_torneo);
-    console.log(participantes);
+    //console.log(participantes);
     //console.log({p_torneo,torneo,rondas,participantes});
 
     res.render('links/t_info',{p_torneo, torneo,rondas,participantes,id_torneo});
 });
+
 router.get('/info/info/:id',async(req,res)=>{
     const id_torneo = req.params.id;
     await con.query("SELECT juegos.id_partida, juegos.num_match, p1.nombre1,p2.nombre2,mapas.nombre from juegos,mapas,(select personajes.id,personajes.nombre as nombre1 from personajes)as p1, (select personajes.id,personajes.nombre as nombre2 from personajes)as p2 where p1.id=juegos.pj1 and p2.id=juegos.pj2 and juegos.mapa=mapas.id and juegos.id_partida=?",[id_torneo],function(err,result,fields){
@@ -100,21 +101,51 @@ router.post('/info/add/:id',async(req,res)=>{
     const {id_user} = req.body;
     const id_torneo = req.params.id;
     const participante = {id_torneo,id_user};
-    var mensaje;
 
-    await con.query("INSERT INTO resultados set ?",[participante],function(err,result,fields){
+    await con.query("INSERT INTO resultados set ?",[participante],function(err){
         if(err){
             console.log('hay un error');
             //res.send('Ya esta inscrito');
             return;
         }else{
-            console.log(participante);
+            //console.log(participante);
             //res.send('Inscrito correctamente');
         };
         
     });
     res.redirect('/tournament/info/6');
+});
+
+var respuesta1;
+var respuesta2;
+var ver;
+
+router.post('/info/game/:id',async function aaaaa(req,res){
+    const {id_jugador1, id_jugador2, score_jugador1, score_jugador2, num_ronda} = req.body;
+    const id_torneo = req.params.id;
+    const nuevaPartida={id_torneo, id_jugador1, id_jugador2, score_jugador1, score_jugador2, num_ronda};
+
+    await con.query("SELECT IF(count(*) != 0,'True', 'False') as PUEDE FROM resultados WHERE resultados.id_user= ? and resultados.id_torneo = ?",[id_jugador1,id_torneo],function(err,result,fields){
+        if(err) throw err;
+        respuesta1 = result;
+        //console.log(torneo);
+    });
+    await con.query("SELECT IF(count(*) != 0,'True', 'False') as PUEDE FROM resultados WHERE resultados.id_user= ? and resultados.id_torneo = ?",[id_jugador2,id_torneo],function(err,result,fields){
+        if(err) throw err;
+        respuesta2 = result;
+        //console.log(torneo);
+    });
+    
+    await con.query("SELECT 'True' as PUEDE",function(err,result,fields){
+        if(err) throw err;
+        ver= result;
+        //console.log(torneo);
+    });
+    console.log(nuevaPartida);
+
+    await con.query("INSERT INTO partidas set ?",[nuevaPartida]);
 
 
+    res.redirect('/tournament/info/6');
 });
 module.exports = router; //Exporta el objeto router
