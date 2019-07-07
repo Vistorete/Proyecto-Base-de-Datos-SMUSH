@@ -88,19 +88,39 @@ router.get('/info/:id',async(req,res)=>{
 });
 
 router.get('/info/info/:id',async(req,res)=>{
-    const id_torneo = req.params.id;
-    await con.query("SELECT juegos.id_partida, juegos.num_match, p1.nombre1,p2.nombre2,mapas.nombre from juegos,mapas,(select personajes.id,personajes.nombre as nombre1 from personajes)as p1, (select personajes.id,personajes.nombre as nombre2 from personajes)as p2 where p1.id=juegos.pj1 and p2.id=juegos.pj2 and juegos.mapa=mapas.id and juegos.id_partida=?",[id_torneo],function(err,result,fields){
+    const id_tor = req.params.id;
+    await con.query("SELECT juegos.id_partida, juegos.num_match, p1.nombre1,p2.nombre2,mapas.nombre from juegos,mapas,(select personajes.id,personajes.nombre as nombre1 from personajes)as p1, (select personajes.id,personajes.nombre as nombre2 from personajes)as p2 where p1.id=juegos.pj1 and p2.id=juegos.pj2 and juegos.mapa=mapas.id and juegos.id_partida=?",[id_tor],function(err,result,fields){
         if(err) throw er1r;
         p_torneo = result;
         console.log(result);
     });
-    res.render('links/t_infoinfo',{p_torneo});
+    res.render('links/t_infoinfo',{p_torneo,id_tor});
 });
 
+router.post('/info/info/:id',async(req,res)=>{
+    const {num_match, pj1, pj2, mapa} = req.body;
+    const id_partida = req.params.id;
+    const juego = {id_partida, num_match, pj1, pj2, mapa};
+    console.log(juego);
+    await con.query("INSERT INTO juegos SET ?",[juego],function(err){
+        if(err){
+            console.log('hay un error');
+            //res.send('Ya esta inscrito');
+            return;
+        }else{
+            //console.log(participante);
+            //res.send('Inscrito correctamente');
+        };
+    } );
+    var url = ('/tournament/info/info/'+id_partida);
+    console.log(url);  
+    res.redirect(url);
+});
 router.post('/info/add/:id',async(req,res)=>{
     const {id_user} = req.body;
     const id_torneo = req.params.id;
     const participante = {id_torneo,id_user};
+    console.log(participante);
 
     await con.query("INSERT INTO resultados set ?",[participante],function(err){
         if(err){
@@ -111,16 +131,16 @@ router.post('/info/add/:id',async(req,res)=>{
             //console.log(participante);
             //res.send('Inscrito correctamente');
         };
-        
     });
-    res.redirect('/tournament/info/6');
+    var url = ('/tournament/info/'+id_torneo);
+    res.redirect(url);
 });
 
 var respuesta1;
 var respuesta2;
 var ver;
 
-router.post('/info/game/:id',async function aaaaa(req,res){
+router.post('/info/game/:id',async function(req,res){
     const {id_jugador1, id_jugador2, score_jugador1, score_jugador2, num_ronda} = req.body;
     const id_torneo = req.params.id;
     const nuevaPartida={id_torneo, id_jugador1, id_jugador2, score_jugador1, score_jugador2, num_ronda};
@@ -143,9 +163,13 @@ router.post('/info/game/:id',async function aaaaa(req,res){
     });
     console.log(nuevaPartida);
 
+
     await con.query("INSERT INTO partidas set ?",[nuevaPartida]);
-
-
-    res.redirect('/tournament/info/6');
+    await con.query("UPDATE    resultados,(SELECT res.id_torneo, res.perdedor, (POWER(2,(maximo.rondas - res.num_ronda)) + 1) as pos FROM (SELECT partidas.id_torneo AS id_torneo1, MAX(partidas.num_ronda) AS rondas FROM partidas GROUP BY partidas.id_torneo) as maximo, (SELECT partidas.id, partidas.id_torneo,partidas.num_ronda, IF(partidas.score_jugador1 < partidas.score_jugador2, partidas.id_jugador1,partidas.id_jugador2) as perdedor FROM partidas) as res WHERE res.id_torneo = maximo.id_torneo1) AS actualizar SET       resultados.posicion = actualizar.pos WHERE     resultados.id_torneo = actualizar.id_torneo AND       resultados.id_user = actualizar.perdedor and resultados.id_torneo = ?",[id_torneo]);
+    await con.query("UPDATE    resultados,(SELECT maximo.id_torneo, IF(partidas.score_jugador1>partidas.score_jugador2,partidas.id_jugador1,partidas.id_jugador2) as ganador, 1 AS pos FROM partidas, (SELECT MAX(partidas.num_ronda) AS rondas, partidas.id_torneo FROM partidas WHERE partidas.id_torneo = ?) maximo WHERE partidas.id_torneo = maximo.id_torneo and maximo.rondas = partidas.num_ronda) AS actualizar SET       resultados.posicion = actualizar.pos WHERE     resultados.id_torneo = actualizar.id_torneo AND       resultados.id_user = actualizar.ganador AND resultados.id_torneo = ?",[id_torneo,id_torneo]);
+    var url = ('/tournament/info/'+id_torneo);
+    res.redirect(url);
 });
+
+
 module.exports = router; //Exporta el objeto router
