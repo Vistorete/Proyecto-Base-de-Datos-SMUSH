@@ -30,7 +30,7 @@ router.get('/poppj', async (req, res) => {
     //res.send("asbdkasdasd");
     //console.log(tournaments);
 });
-var tour
+var tour;
 router.get('/captour', async (req, res) => {
     await con.query("select torneos.nombre, locales.capacidad from locales,torneos where torneos.id_local = locales.id",function(err,result,fields){
         if(err) throw err;
@@ -75,9 +75,8 @@ router.get('/jsneq', async (req, res) => {
 
 router.get('/userorg', async (req, res) => {
     const id = req.params.id;
-    console.log(id)
 
-    await con.query("SELECT users.username, users.fullname, torneos.nombre, torneos.id, locales.nombre as nombreL FROM torneos, users, locales WHERE locales.id = torneos.id_local and torneos.id_organizador = ? and users.id=?",[id,id],function(err,result,fields){
+    await con.query("SELECT users.username, users.fullname, torneos.nombre, locales.nombre as nombreL FROM users, locales, torneos WHERE torneos.id_local = locales.id and torneos.id_organizador = users.id",function(err,result,fields){
         if(err) throw err;
         console.log(result);
         pj=result;
@@ -90,7 +89,6 @@ router.get('/userorg', async (req, res) => {
 
 router.get('/mapaspop', async (req, res) => {
     const id = req.params.id;
-    console.log(id)
 
     await con.query("select * from (select mapas.nombre , count(*) as cuenta from mapas , juegos where mapas.id = juegos.mapa group by mapas.id) as E order by E.cuenta desc",function(err,result,fields){
         if(err) throw err;
@@ -210,7 +208,7 @@ router.get('/npdream2019', async (req, res) => {
 router.get('/toppj', async (req, res) => {
     const id = req.params.id;
     console.log(id);
-    await con.query("select a.nombre  from ((select count(*) n , personajes.nombre from personajes,juegos,partidas,users where (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) and juegos.id_partida = partidas.id and (personajes.id = juegos.pj1 or personajes.id = juegos.pj2) group by (personajes.nombre))as a)  where a.n = (select max(a.n) from ((select count(*) n , personajes.nombre from personajes,juegos,partidas,users where (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) and juegos.id_partida = partidas.id and (personajes.id = juegos.pj1 or personajes.id = juegos.pj2) group by (personajes.nombre))as a)) ",function(err,result,fields){
+    await con.query("select a.nombre from (select count(personajes.nombre ) n , personajes.nombre from personajes,juegos,partidas,users where (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) and juegos.id_partida = partidas.id and (personajes.id = juegos.pj1 or personajes.id = juegos.pj2) group by (personajes.nombre))as a where a.n = (select max(a.n) from (select count(personajes.nombre ) n , personajes.nombre from personajes,juegos,partidas,users where (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) and juegos.id_partida = partidas.id and (personajes.id = juegos.pj1 or personajes.id = juegos.pj2) group by (personajes.nombre))as a);",function(err,result,fields){
         if(err) throw err;
         console.log(result);
         pj=result;
