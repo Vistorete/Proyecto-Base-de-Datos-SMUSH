@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Capacidad</th>
+                    </tr>
+                </thead>
+                
+
+                <tbody>
+                    {{#each locales}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{nombre}}</td>
+                            <td>{{direccion}}</td>
+
+                            <td>{{capacidad}}</td>
+
+
+                        </tr>
+                    {{/each}}
+
+                </tbody>
+
+            </table>
+        </div>
+                <div class="col-md-5">
+            <div class="card">
+                <div class="card-body" data-target="#id_torneo">
+                    <form action="/tournament/locals" method="post" onsumit="return Validator()">
+                 <div class="form-group"><input type="number" name="num_match" placeholder="N° de match" class="form-group"></div>
+                                <div id="name_error" class="val_error"></div>
+                <button type="submit" class="btn btn-primary">
+                    Agregar juego
+                </button>
+            </form> 
+                </div>
+            </div>
+
+
+        </div>
+        
+    </div>
+</div>

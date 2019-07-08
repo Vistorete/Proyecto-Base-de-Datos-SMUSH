@@ -171,5 +171,22 @@ router.post('/info/game/:id',async function(req,res){
     res.redirect(url);
 });
 
+var locales;
+
+router.get('/locals', async (req, res) => {
+    await con.query("SELECT * FROM locales",function(err,result,fields){
+        if (err){
+            console.log('hay un error');
+        }else{
+            console.log("no hay errores");
+            locales = result;
+            console.log(locales);
+        }
+    });
+    res.render('links/locals',{locales});
+
+    //res.send("aaaaaaaaaaaaaaaaaa");
+});
+
 
 module.exports = router; //Exporta el objeto router
