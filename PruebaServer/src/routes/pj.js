@@ -73,7 +73,7 @@ router.get('/jsneq', async (req, res) => {
 });
 
 
-router.get('/userorg/:id', async (req, res) => {
+router.get('/userorg', async (req, res) => {
     const id = req.params.id;
     console.log(id)
 
