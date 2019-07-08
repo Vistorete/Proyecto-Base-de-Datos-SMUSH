@@ -42,7 +42,7 @@ router.get('/captour', async (req, res) => {
     //console.log(tournaments);
 });
 router.get('/mineq', async (req, res) => {
-    await con.query("select equipos.nombre from equipos where equipos.id = (select E.id_equipo from (select users.id_equipo , count(users.id) C from users group by users.id_equipo) as E where E.C= (select min(f.contador) from (select users.id_equipo , count(users.id) contador  from users group by users.id_equipo)as f))",function(err,result,fields){
+    await con.query("select equipos.nombre, equipos.tag from equipos where equipos.id = (select E.id_equipo from (select users.id_equipo , count(users.id) C from users group by users.id_equipo) as E where E.C= (select min(f.contador) from (select users.id_equipo , count(users.id) contador  from users group by users.id_equipo)as f))",function(err,result,fields){
         if(err) throw err;
         console.log(result);
         pj=result;
@@ -119,7 +119,7 @@ router.get('/pagan', async (req, res) => {
 
 router.get('/topplay', async (req, res) => {
     const id = req.params.id;
-    console.log(id)
+    console.log(id);
 
     await con.query("select users.fullname, resultados.posicion from users,resultados where users.id = resultados.id_user and (resultados.posicion = 1 or resultados.posicion = 2 or resultados.posicion = 3) order by resultados.posicion",function(err,result,fields){
         if(err) throw err;
@@ -209,7 +209,7 @@ router.get('/npdream2019', async (req, res) => {
 
 router.get('/toppj', async (req, res) => {
     const id = req.params.id;
-    console.log(id)
+    console.log(id);
     await con.query("select a.nombre  from ((select count(*) n , personajes.nombre from personajes,juegos,partidas,users where (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) and juegos.id_partida = partidas.id and (personajes.id = juegos.pj1 or personajes.id = juegos.pj2) group by (personajes.nombre))as a)  where a.n = (select max(a.n) from ((select count(*) n , personajes.nombre from personajes,juegos,partidas,users where (users.id = partidas.id_jugador1 or users.id = partidas.id_jugador2) and juegos.id_partida = partidas.id and (personajes.id = juegos.pj1 or personajes.id = juegos.pj2) group by (personajes.nombre))as a)) ",function(err,result,fields){
         if(err) throw err;
         console.log(result);

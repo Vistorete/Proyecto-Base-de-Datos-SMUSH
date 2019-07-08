@@ -9,8 +9,8 @@ var con = mysql.createConnection({
     password: '',
     database: 'database_smush'
 });
-router.get('/', (req, res) => { //Se define una ruta y muestra "Hello World"
-    res.render('links/index');
+router.get('/', (req, res) => { //Se define una ruta y muestra la portada creada
+    res.render('links/portada');
 });
 
-module.exports = router; //Exporta el    objeto router
+module.exports = router; //Exporta el objeto router

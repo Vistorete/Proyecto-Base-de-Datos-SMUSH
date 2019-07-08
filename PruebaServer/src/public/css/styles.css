@@ -1,0 +1,33 @@
+body { /* font para la página entera */
+  background: #f5f6fa;
+  font-family: 'Oswald', sans-serif;
+}
+
+.index {
+  width: 100%; 
+  height: 80vh;
+}
+
+.masthead { /* Edita el tamaño y color del background */
+  color: white;
+  min-height: 30rem;
+  width: 100%;
+  height: 114%;
+  padding-top: 0rem;
+  background: url('/images/PjsSmash.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.masthead h1{ /*Edita el título de la portada */
+  font-size: 4rem;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 992px){
+  .masthead h1{
+    font-size: 4rem;
+  }
+}
