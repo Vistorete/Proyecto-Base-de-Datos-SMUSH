@@ -89,14 +89,19 @@ router.post('/edit/:id', async (req, res) => { //Función para editar el usuario
     res.redirect('/users');
 });
 
+var partidas;
 router.get('/profile/:id', async(req, res) => {
     const { id } = req.params;
     await con.query('SELECT * FROM users WHERE id = ?', [id], function(err,result,fields){
         if(err) throw err
         users2 = result;
     });
+    await con.query("SELECT p1.id_torneo,torneos.nombre, p1.id, p1.username as user1,p1.score_jugador1,p2.score_jugador2,  p2.username as user2, p1.num_ronda FROM torneos, (SELECT partidas.id, partidas.id_torneo, users.username, partidas.id_jugador1, partidas.score_jugador1, partidas.num_ronda    FROM users, partidas    WHERE users.id=partidas.id_jugador1) as p1,   (SELECT partidas.id, partidas.id_torneo, users.username, partidas.id_jugador2, partidas.score_jugador2    FROM users, partidas    WHERE users.id=partidas.id_jugador2) as p2 WHERE p1.id=p2.id AND torneos.id = p1.id_torneo AND (p1.id_jugador1 = ? or p2.id_jugador2 = ?)",[id,id],function(err,result,field){
+        if (err) throw err
+        partidas = result;
+    });
     //console.log(users2);
-    res.render('links/profile', {users2});
+    res.render('links/profile', {users2,partidas});
 });
 
 module.exports = router;

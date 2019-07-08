@@ -32,3 +32,41 @@
     </div>
 </div>
 {{/each}}
+<h1>
+    <center>Partidas jugadas</center>
+</h1>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col md-5">
+            <table class="table" id="table">
+                <form action="/profile/{{id}}" method="post"></form>
+                <thead>
+                    <tr>
+                        <td>ID torneo</td>
+                        <td>Torneo</td>
+                        <td>ID partida</td>
+                        <td>Jugador 1</td>
+                        <td>Score 1</td>
+                        <td>Score 2</td>
+                        <td>Jugador 2</td>
+                        <td>N° de ronda</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each partidas}}
+                    <tr>
+                        <td>{{id_torneo}}</td>
+                        <td>{{nombre}}    </td>
+                        <td>{{id}}</td>
+                        <td>{{user1}}</td>
+                        <td>{{score_jugador1}}</td>
+                        <td>{{score_jugador2}}</td>
+                        <td>{{user2}}</td>
+                        <td>{{num_ronda}}    </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

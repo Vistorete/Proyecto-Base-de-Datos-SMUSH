@@ -45,6 +45,8 @@ router.get('/delete/:id',async(req,res)=>{
     await con.query('DELETE FROM torneos WHERE id = ?',[id]);
     //await con.query("DELETE FROM partidas WHERE id_torneo = ?",[id]);
     await con.query('DELETE FROM partidas WHERE partidas.id_torneo=?',[id]);
+    await con.query('DELETE FROM resultados WHERE resultados.id_torneo=?',[id]);
+
     await res.redirect('/tournament');
 });
 

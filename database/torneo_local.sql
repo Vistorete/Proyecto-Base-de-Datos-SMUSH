@@ -161,7 +161,7 @@ Insert into partidas(id_torneo,id_jugador1,id_jugador2,score_jugador1,score_juga
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (20,1,59,64,4);
 Insert into partidas(id_torneo,id_jugador1,id_jugador2,score_jugador1,score_jugador2,num_ronda) values (2,456,12,0,1,1);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (21,1,71,64,7);
-Insert into partidas(id_torneo,id_jugador1,id_jugador2,score_jugador1,score_jugador2,num_ronda) values (2,789,11,1,0,1);
+Insert into partidas(id_torneo,id_jugador1,id_jugador2,score_jugador1,score_jugador2,num_ronda) values (2,784,11,1,0,1);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (22,1,40,34,8);
 Insert into partidas(id_torneo,id_jugador1,id_jugador2,score_jugador1,score_jugador2,num_ronda) values (2,100,13,1,0,1);
 INSERT INTO juegos (id_partida,num_match,pj1,pj2,mapa) values (23,1,62,81,13);
