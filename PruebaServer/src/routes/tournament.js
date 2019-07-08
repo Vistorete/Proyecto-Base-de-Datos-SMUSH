@@ -189,4 +189,22 @@ router.get('/locals', async (req, res) => {
 });
 
 
+router.post('/locals', async (req, res) => {
+    const {nombre, direccion, capacidad} = req.body;
+    const nuevoLocal = {nombre, direccion, capacidad};
+    console.log(nuevoLocal);
+
+    
+    await con.query("INSERT INTO locales SET ?",[nuevoLocal],function(err,result,fields){
+        if (err){
+            console.log('hay un error');
+        }else{
+            console.log("no hay errores");
+        }
+    });
+    
+    res.redirect('/tournament/locals');
+});
+
+
 module.exports = router; //Exporta el objeto router

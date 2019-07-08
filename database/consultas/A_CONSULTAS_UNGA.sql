@@ -16,7 +16,7 @@ SELECT perdidas.id, perdidas.id_torneo, perdidas.perdedor, perdidas.num_ronda, u
 WHERE (partidas.id_jugador1 =1001 and partidas.score_jugador1<partidas.score_jugador2) or (partidas.id_jugador2 =1001 and partidas.score_jugador1>partidas.score_jugador2);
 --###################################################################
 
-SELECT maximo.id_torneo, IF(partidas.score_jugador1>partidas.score_jugador2,partidas.id_jugador1,partidas.id_jugador2) as ganador, 1 AS pos FROM partidas, (SELECT MAX(partidas.num_ronda) AS rondas, partidas.id_torneo FROM partidas WHERE partidas.id_torneo = 5) maximo WHERE partidas.id_torneo = maximo.id_torneo and maximo.rondas = partidas.num_ronda;
+SELECT maximo.id_torneo, IF(partidas.score_jugador1>partidas.score_jugador2,partidas.id_jugador1,partidas.id_jugador2) as ganador, 1 AS pos FROM partidas, (SELECT MAX(partidas.num_ronda) AS rondas, partidas.id_torneo FROM partidas WHERE partidas.id_torneo = ?) maximo WHERE partidas.id_torneo = maximo.id_torneo and maximo.rondas = partidas.num_ronda;
 --#########################
 (POWER(2,(maximo.rondas - res.num_ronda)) + 1) AS pos,res.id_jugador1,res.id_jugador2
 SELECT * FROM
@@ -40,7 +40,7 @@ SELECT res.id_torneo, res.perdedor as id_user ,(POWER(2,(maximo.rondas - res.num
 
 --se actualizan todos menos la posicion 1
 INSERT INTO resultados SET 
-SELECT * FROM (SELECT partidas.id_torneo, MAX(partidas.num_ronda) AS rondas FROM partidas GROUP BY partidas.id_torneo) as maximo, (SELECT partidas.id, partidas.id_torneo,partidas.num_ronda, IF(partidas.score_jugador1 < partidas.score_jugador2, partidas.id_jugador1,partidas.id_jugador2) as perdedor FROM partidas) as res WHERE res.id_torneo = maximo.id_torneo and res.id_torneo = 5;
+SELECT * FROM (SELECT partidas.id_torneo, MAX(partidas.num_ronda) AS rondas FROM partidas GROUP BY partidas.id_torneo) as maximo, (SELECT partidas.id, partidas.id_torneo,partidas.num_ronda, IF(partidas.score_jugador1 < partidas.score_jugador2, partidas.id_jugador1,partidas.id_jugador2) as perdedor FROM partidas) as res WHERE res.id_torneo = maximo.id_torneo and res.id_torneo = ?;
 
 --acutualizacion lugar 1 forma unga
 res.id_torneo, res.perdedor AS id_user  , 0 AS posicion
@@ -48,7 +48,7 @@ res.id_torneo, res.perdedor AS id_user  , 0 AS posicion
 SELECT resultados.id_torneo, resultados.id_user, 1 AS posicion FROM resultados WHERE resultados.posicion = 1 AND resultados.id_torneo = 1;
 
 
-UPDATE resultados SET (id_torneo, id_user, posicion) = (SELECT res.id_torneo, res.perdedor , 0 FROM (SELECT partidas.id_torneo, MAX(partidas.num_ronda) AS rondas FROM partidas GROUP BY partidas.id_torneo) as maximo, (SELECT partidas.id, partidas.id_torneo,partidas.num_ronda, IF(partidas.score_jugador1 < partidas.score_jugador2, partidas.id_jugador1,partidas.id_jugador2) as perdedor FROM partidas) as res WHERE res.id_torneo = maximo.id_torneo and res.id_torneo = 5)
+UPDATE resultados SET (id_torneo, id_user, posicion) = (SELECT res.id_torneo, res.perdedor , 0 FROM (SELECT partidas.id_torneo, MAX(partidas.num_ronda) AS rondas FROM partidas GROUP BY partidas.id_torneo) as maximo, (SELECT partidas.id, partidas.id_torneo,partidas.num_ronda, IF(partidas.score_jugador1 < partidas.score_jugador2, partidas.id_jugador1,partidas.id_jugador2) as perdedor FROM partidas) as res WHERE res.id_torneo = maximo.id_torneo and res.id_torneo = ?)
 
 
 
@@ -71,22 +71,25 @@ SELECT actualizar.id_torneo, actualizar.perdedor FROM (SELECT res.id_torneo, res
 
 
 
---ACTUALIZA RESULTADOS DE LOS INSCRITOS  cambiar 5 por ? 
+--ACTUALIZA RESULTADOS DE LOS INSCRITOS  cambiar ? por ?  
 
 
-UPDATE    resultados,(SELECT res.id_torneo, res.perdedor, (POWER(2,(maximo.rondas - res.num_ronda)) + 1) as pos FROM (SELECT partidas.id_torneo AS id_torneo1, MAX(partidas.num_ronda) AS rondas FROM partidas GROUP BY partidas.id_torneo) as maximo, (SELECT partidas.id, partidas.id_torneo,partidas.num_ronda, IF(partidas.score_jugador1 < partidas.score_jugador2, partidas.id_jugador1,partidas.id_jugador2) as perdedor FROM partidas) as res WHERE res.id_torneo = maximo.id_torneo1) AS actualizar
-SET       resultados.posicion = actualizar.pos
-WHERE     resultados.id_torneo = actualizar.id_torneo
-AND       resultados.id_user = actualizar.perdedor;
+UPDATE    resultados,(SELECT res.id_torneo, res.perdedor, (POWER(2,(maximo.rondas - res.num_ronda)) + 1) as pos FROM (SELECT partidas.id_torneo AS id_torneo1, MAX(partidas.num_ronda) AS rondas FROM partidas GROUP BY partidas.id_torneo) as maximo, (SELECT partidas.id, partidas.id_torneo,partidas.num_ronda, IF(partidas.score_jugador1 < partidas.score_jugador2, partidas.id_jugador1,partidas.id_jugador2) as perdedor FROM partidas) as res WHERE res.id_torneo = maximo.id_torneo1) AS actualizar SET       resultados.posicion = actualizar.pos WHERE     resultados.id_torneo = actualizar.id_torneo AND       resultados.id_user = actualizar.perdedor and resultados.id_torneo = ?;
 
-UPDATE    resultados,(SELECT maximo.id_torneo, IF(partidas.score_jugador1>partidas.score_jugador2,partidas.id_jugador1,partidas.id_jugador2) as ganador, 1 AS pos FROM partidas, (SELECT MAX(partidas.num_ronda) AS rondas, partidas.id_torneo FROM partidas WHERE partidas.id_torneo = 5) maximo WHERE partidas.id_torneo = maximo.id_torneo and maximo.rondas = partidas.num_ronda) AS actualizar
-SET       resultados.posicion = actualizar.pos
-WHERE     resultados.id_torneo = actualizar.id_torneo
-AND       resultados.id_user = actualizar.ganador;
+UPDATE    resultados,(SELECT maximo.id_torneo, IF(partidas.score_jugador1>partidas.score_jugador2,partidas.id_jugador1,partidas.id_jugador2) as ganador, 1 AS pos FROM partidas, (SELECT MAX(partidas.num_ronda) AS rondas, partidas.id_torneo FROM partidas WHERE partidas.id_torneo = ?) maximo WHERE partidas.id_torneo = maximo.id_torneo and maximo.rondas = partidas.num_ronda) AS actualizar SET       resultados.posicion = actualizar.pos WHERE     resultados.id_torneo = actualizar.id_torneo AND       resultados.id_user = actualizar.ganador AND resultados.id_torneo = ?;
 
 
---INSERTA LA TABLA DE RESULTADOS A PARTIR DE PARTIDAS QUE SE JUEGAN -- cambiar 5 por ?
+--INSERTA LA TABLA DE RESULTADOS A PARTIR DE PARTIDAS QUE SE JUEGAN -- cambiar ? por ?
 
-INSERT INTO resultados SELECT res.id_torneo, res.perdedor, (POWER(2,(maximo.rondas - res.num_ronda)) + 1) as pos FROM (SELECT partidas.id_torneo AS id_torneo1, MAX(partidas.num_ronda) AS rondas FROM partidas GROUP BY partidas.id_torneo) as maximo, (SELECT partidas.id, partidas.id_torneo,partidas.num_ronda, IF(partidas.score_jugador1 < partidas.score_jugador2, partidas.id_jugador1,partidas.id_jugador2) as perdedor FROM partidas) as res WHERE res.id_torneo = maximo.id_torneo1 and res.id_torneo = 5;
+INSERT INTO resultados SELECT res.id_torneo, res.perdedor, (POWER(2,(maximo.rondas - res.num_ronda)) + 1) as pos FROM (SELECT partidas.id_torneo AS id_torneo1, MAX(partidas.num_ronda) AS rondas FROM partidas GROUP BY partidas.id_torneo) as maximo, (SELECT partidas.id, partidas.id_torneo,partidas.num_ronda, IF(partidas.score_jugador1 < partidas.score_jugador2, partidas.id_jugador1,partidas.id_jugador2) as perdedor FROM partidas) as res WHERE res.id_torneo = maximo.id_torneo1 and res.id_torneo = ?;
 
-INSERT INTO resultados SELECT maximo.id_torneo, IF(partidas.score_jugador1>partidas.score_jugador2,partidas.id_jugador1,partidas.id_jugador2) as ganador, 1 AS pos FROM partidas, (SELECT MAX(partidas.num_ronda) AS rondas, partidas.id_torneo FROM partidas WHERE partidas.id_torneo = 5) maximo WHERE partidas.id_torneo = maximo.id_torneo and maximo.rondas = partidas.num_ronda;
+INSERT INTO resultados SELECT maximo.id_torneo, IF(partidas.score_jugador1>partidas.score_jugador2,partidas.id_jugador1,partidas.id_jugador2) as ganador, 1 AS pos FROM partidas, (SELECT MAX(partidas.num_ronda) AS rondas, partidas.id_torneo FROM partidas WHERE partidas.id_torneo = ?) maximo WHERE partidas.id_torneo = maximo.id_torneo and maximo.rondas = partidas.num_ronda;
+
+
+
+
+-- OTRAS CONSULTAS
+
+SELECT SELECT IF(count(*) != 0,'True', 'False') as PUEDE FROM resultados WHERE resultados.id_user=1001 and resultados.id_torneo = 6 ;
+
+
